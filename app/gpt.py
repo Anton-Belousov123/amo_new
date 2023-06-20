@@ -91,7 +91,7 @@ def prepare_request(amo_messages):
 
 def get_answer(messages: list, limit):
     l, t = deepl.translate_it(str(messages), 'EN')
-    messages = json.loads(t)
+    messages = json.loads(t.replace("'", '"'))
     try:
         # if True:
         openai.api_key = os.getenv('CHAT_GPT_KEY')
