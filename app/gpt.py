@@ -45,7 +45,7 @@ def is_answer_correct(question, answer):
 
 def prepare_request(amo_messages):
     messages = []
-    print('Вопро с:', amo_messages[1]['text'])
+    print('Вопрос:', amo_messages[1]['text'])
     print('Ответ:', amo_messages[0]['text'])
     rules, length, messages = sheets.read_message_preview()
     text_length = len(rules)
@@ -90,8 +90,7 @@ def prepare_request(amo_messages):
 
 def get_answer(messages: list, limit):
     l, t = deepl.translate_it(str(messages), 'EN')
-    print(t)
-    exit(0)
+    messages = eval(t)
     try:
         # if True:
         openai.api_key = os.getenv('CHAT_GPT_KEY')
@@ -102,7 +101,8 @@ def get_answer(messages: list, limit):
         )
         if response['choices'][0]['message']['content'].count('?') > 1:
             return get_answer(messages, limit)
-        return response['choices'][0]['message']['content']
+
+        return deepl.translate_it(response['choices'][0]['message']['content'], l)
 
     except Exception as e:
         print('Ошибка', e)

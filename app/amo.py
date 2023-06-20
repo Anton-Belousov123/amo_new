@@ -7,7 +7,7 @@ import bs4
 from flask import Flask, request
 import requests
 import dotenv
-from app import gpt, auth
+from app import gpt, auth, deepl
 from app.gpt import get_answer
 
 
@@ -126,7 +126,7 @@ def hello():
         if s in alphabet: fl = True
     if not fl:
         pipeline = get_pipeline(image, name, text)
-        translation = translate_it(text)
+        _, translation = deepl.translate_it(text, 'RU')
         token, session = auth.get_token()
         send_notes(pipeline, session, translation)
     prepared_request, limit = gpt.prepare_request(chat_history)
@@ -147,7 +147,7 @@ def hello():
         if s in alphabet: fl = True
     if not fl:
         pipeline = get_pipeline(image, name, text)
-        translation = translate_it(message)
+        _, translation = deepl.translate_it(message, 'RU')
         token, session = auth.get_token()
         send_notes(pipeline, session, translation)
 
