@@ -93,7 +93,7 @@ def get_answer(messages: list, limit):
     new_messages = ""
     for i in messages:
         new_messages += i['content'] + '\n\n\n'
-    l, t = deepl.translate_it(str(messages), 'EN')
+    l, t = deepl.translate_it(new_messages, 'EN')
     print(t)
     t = t.split('\n\n\n')
     for i in range(len(messages)):
