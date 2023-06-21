@@ -130,7 +130,8 @@ def hello():
         token, session = auth.get_token()
         send_notes(pipeline, session, translation)
     prepared_request, limit = gpt.prepare_request(chat_history)
-    message = gpt.get_answer(prepared_request, limit)
+    target_language, _ = deepl.translate_it(d['message[add][0][text]'], 'EN')
+    message = gpt.get_answer(prepared_request, limit, target_language=target_language)
     while True:
         try:
             send_message(receiver_id, message)

@@ -89,7 +89,7 @@ def prepare_request(amo_messages):
     return response, length
 
 
-def get_answer(messages: list, limit):
+def get_answer(messages: list, limit, target_language='RU'):
     new_messages = ""
     for i in messages:
         new_messages += i['content'] + '\n\n\n'
@@ -109,7 +109,7 @@ def get_answer(messages: list, limit):
         )
         if response['choices'][0]['message']['content'].count('?') > 1:
             return get_answer(messages, limit)
-        _, answer = deepl.translate_it(response['choices'][0]['message']['content'], l)
+        _, answer = deepl.translate_it(response['choices'][0]['message']['content'], target_language)
         print('ANSWER: ', answer)
         return answer
 
