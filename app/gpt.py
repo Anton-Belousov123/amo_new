@@ -90,10 +90,16 @@ def prepare_request(amo_messages):
 
 
 def get_answer(messages: list, limit):
+    new_messages = ""
     for i in messages:
-        print(i)
+        new_messages += i['content'] + '\n\n\n'
     l, t = deepl.translate_it(str(messages), 'EN')
-    messages = json.loads(t.replace("'", '"'))
+    print(t)
+    t = t.split('\n\n\n')
+    for i in range(len(messages)):
+        messages[i] = t[i]
+
+
     try:
         # if True:
         openai.api_key = os.getenv('CHAT_GPT_KEY')
