@@ -94,11 +94,9 @@ def get_answer(messages: list, limit):
     for i in messages:
         new_messages += i['content'] + '\n\n\n'
     l, t = deepl.translate_it(new_messages, 'EN')
-    print(t)
     t = t.split('\n\n\n')
     for i in range(len(messages)):
         messages[i]['content'] = t[i]
-
 
     try:
         # if True:
@@ -110,8 +108,9 @@ def get_answer(messages: list, limit):
         )
         if response['choices'][0]['message']['content'].count('?') > 1:
             return get_answer(messages, limit)
-
-        return deepl.translate_it(response['choices'][0]['message']['content'], l)
+        answer = deepl.translate_it(response['choices'][0]['message']['content'], l)
+        print('ANSWER: ', answer)
+        return answer
 
     except Exception as e:
         print('Ошибка', e)
