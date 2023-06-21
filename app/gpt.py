@@ -97,7 +97,7 @@ def get_answer(messages: list, limit):
     print(t)
     t = t.split('\n\n\n')
     for i in range(len(messages)):
-        messages[i] = t[i]
+        messages[i]['content'] = t[i]
 
 
     try:
