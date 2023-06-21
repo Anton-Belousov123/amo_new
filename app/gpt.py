@@ -90,6 +90,8 @@ def prepare_request(amo_messages):
 
 
 def get_answer(messages: list, limit):
+    for i in messages:
+        print(i)
     l, t = deepl.translate_it(str(messages), 'EN')
     messages = json.loads(t.replace("'", '"'))
     try:
