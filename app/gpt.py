@@ -108,7 +108,7 @@ def get_answer(messages: list, limit):
         )
         if response['choices'][0]['message']['content'].count('?') > 1:
             return get_answer(messages, limit)
-        answer = deepl.translate_it(response['choices'][0]['message']['content'], l)
+        _, answer = deepl.translate_it(response['choices'][0]['message']['content'], l)
         print('ANSWER: ', answer)
         return answer
 
