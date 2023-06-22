@@ -81,11 +81,6 @@ def send_notes(pipeline_id, session, text):
     print(resp.text)
 
 
-def translate_it(m):
-    messages = [
-        {'role': 'system', 'content': f"Translate this text to Russian: {m}"}
-    ]
-    return get_answer(messages, 4000)
 
 
 @app.route('/', methods=["POST"])
@@ -140,6 +135,16 @@ def hello():
             token, session = auth.get_token()
             continue
         break
+    fl = False
+    for s in message:
+        if s in alphabet: fl = True
+
+    if not fl:
+        pipeline = get_pipeline(image, name, message)
+        _, translation = deepl.translate_it(message, 'RU')
+        token, session = auth.get_token()
+        send_notes(pipeline, session, translation)
+
 
     #    get_id(headers)
 
