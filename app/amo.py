@@ -126,6 +126,7 @@ def hello():
         send_notes(pipeline, session, translation)
     prepared_request, limit = gpt.prepare_request(chat_history)
     target_language, _ = deepl.translate_it(d['message[add][0][text]'], 'EN')
+    print(target_language)
     if target_language == 'UA':
         target_language = 'RU'
     message = gpt.get_answer(prepared_request, limit, target_language=target_language)
